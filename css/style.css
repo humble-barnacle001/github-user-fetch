@@ -2,16 +2,31 @@
     position: sticky;
     top: 0;
     z-index: 10;
+    padding: 1rem;
 }
 
 body {
     scroll-behavior: smooth;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 footer {
     position: sticky;
     bottom: 0;
 }
+
+.badge {
+    padding: 0.5rem;
+}
+
+.scroller {
+    width: inherit;
+    position: sticky;
+    bottom: 5rem;
+    right: 0;
+    z-index: 5;
+}
+
 
 .searchBar {
     position: sticky;
@@ -29,7 +44,7 @@ footer {
 }
 
 #profile {
-    min-height: 35vh;
+    min-height: 55vh;
 }
 
 #clr {

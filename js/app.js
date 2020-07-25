@@ -2,6 +2,49 @@ const gh = new GitHub();
 const ui = new UI();
 const clrBtn = document.getElementById('clr');
 const usrName = document.getElementById('usrNameUI');
+const theme = document.getElementById('theme');
+const themeChanger = document.getElementById('themeChanger');
+const lightCSS = 'css/litera.bootstrap.min.css';
+const darkCSS = 'css/darkly.bootstrap.min.css';
+const toTop = document.getElementById('toTop');
+
+if (window.localStorage.getItem('theme') && window.localStorage.getItem('theme') === 'dark') {
+    theme.setAttribute('href', darkCSS);
+    themeChanger.innerHTML = 'Light Theme';
+}
+else {
+    theme.setAttribute('href', lightCSS);
+    localStorage.setItem('theme', 'light');
+    themeChanger.innerHTML = 'Dark Theme';
+}
+
+themeChanger.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (themeChanger.innerHTML === 'Dark Theme') {
+        theme.setAttribute('href', darkCSS);
+        localStorage.setItem('theme', 'dark');
+        themeChanger.innerHTML = 'Light Theme';
+    }
+    else {
+        theme.setAttribute('href', lightCSS);
+        localStorage.setItem('theme', 'light');
+        themeChanger.innerHTML = 'Dark Theme';
+    }
+});
+
+document.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+        toTop.style.display = '';
+    }
+    else {
+        toTop.style.display = 'none';
+    }
+});
+
+toTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scroll(0, 0);
+});
 
 clrBtn.addEventListener('click', e => {
     e.preventDefault();
@@ -24,6 +67,7 @@ usrName.addEventListener('keyup', (e) => {
                         }
                         else {
                             window.location.reload();
+                            window.scrollTo(0, 0);
                         }
                     }
                     else {
@@ -38,8 +82,13 @@ usrName.addEventListener('keyup', (e) => {
             })
             .catch(err => {
                 ui.showProfile('');
-                confirm('Error!!! Reloading page might help!');
-                window.location.reload();
+                if (confirm('Error!!! Weak Internet Connection!! Reloading page might help!')) {
+                    window.location.reload();
+                    window.scrollTo(0, 0);
+                }
+                else {
+                    ui.showAlert('Weak Network, please reload', 'info');
+                }
             });
     }
     else {
